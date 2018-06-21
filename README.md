@@ -3,11 +3,15 @@
 ## Overview
 
 This repository tests the performance of the [_kmknn_ package](https://github.com/LTLA/kmknn) for detecting nearest neighbours.
-In particular, it compares to existing R packages based on the ANN library (i.e., [RANN](https://cran.r-project.org/web/packages/RANN/index.html) and [FNN](https://cran.r-project.org/web/packages/FNN/index.html)). 
-Focus is on moderately high-dimensional data as discussed by [Wang (2012)](https://dx.doi.org/10.1016/j.patcog.2010.01.003).
+Speed comparisons are performed to existing R packages, mostly based on the ANN library (i.e., [RANN](https://cran.r-project.org/web/packages/RANN/index.html) and [FNN](https://cran.r-project.org/web/packages/FNN/index.html)). 
+We focus on performance for data sets with moderately high (10-50) dimensions, as discussed by [Wang (2012)](https://dx.doi.org/10.1016/j.patcog.2010.01.003).
 
 ## Simulations 
 
-Scenarios include:
+Scenarios in `simulations/` include:
 
 - `sim_hypercube.R`, consisting of uniformly distributed points in a hypercube.
+- `sim_gaussclust.R`, consisting of Gaussian clusters.
+- `sim_helical.R`, consisting of a helical trajectory.
+
+Some of the scripts have tunable parameters that should be specified by the calling process.
