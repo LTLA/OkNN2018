@@ -6,6 +6,7 @@ if (!exists("JITTER")) JITTER <- 1
 if (!exists("CYCLES")) CYCLES <- 1 
 
 source("../functions.R")
+dir.create("results", showWarnings=FALSE)
 
 FUN <- function(npts, ndim) {
     total <- pi * CYCLES
@@ -26,5 +27,5 @@ FUN <- function(npts, ndim) {
     samples + rnorm(length(samples), sd=JITTER)
 }
 
-run_simulation(paste0("res_helix-", CYCLES, "-", HEIGHT, "-", JITTER, ".txt"), FUN=FUN)
+run_simulation(paste0("results/helix-", CYCLES, "-", HEIGHT, "-", JITTER, ".txt"), FUN=FUN)
 

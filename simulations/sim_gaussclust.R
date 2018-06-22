@@ -5,6 +5,7 @@ if (!exists("NCLUST")) NCLUST <- 10
 if (!exists("SD")) SD <- 2
 
 source("../functions.R")
+dir.create("results", showWarnings=FALSE)
 
 FUN <- function(npts, ndim) {
     ids <- sample(NCLUST, npts, replace=TRUE)
@@ -13,5 +14,5 @@ FUN <- function(npts, ndim) {
     matrix(rnorm(npts * ndim, mean=means), ncol=ndim)
 }
 
-run_simulation(paste0("res_gaussclust-", NCLUST, "-", SD, ".txt"), FUN=FUN)
+run_simulation(paste0("results/gaussclust-", NCLUST, "-", SD, ".txt"), FUN=FUN)
 
