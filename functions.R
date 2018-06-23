@@ -2,7 +2,8 @@ library(FNN)
 library(RANN)
 library(kmknn)
 
-METHODS <- c("FNN.kd", "FNN.cover", "RANN.kd", "RANN.bd", "kmknn", "kmknn.pre")
+# Not using RANN box decomposition by default, as it seems to use too much memory.
+METHODS <- c("FNN.kd", "FNN.cover", "RANN.kd", "kmknn", "kmknn.pre")
 
 find_knn <- function(X, k, methods=METHODS) 
 # Timing function, triggering garbage collection first
@@ -72,7 +73,7 @@ run_real <- function(fname, X, iterations=5, ...)
 # Function to run a NN search on the real data and save the results, 
 # given a data matrix.
 {
-    start <- FALSE
+    start <- TRUE 
     for (d in c(2, 5, 10, 20, 50)) { 
         if (d > ncol(X)) break 
         Y <- X[,seq_len(d),drop=FALSE]
@@ -80,7 +81,7 @@ run_real <- function(fname, X, iterations=5, ...)
         for (k in c(2, 5, 10, 20, 50)) {
             for (it in seq_len(iterations)) { 
                 timings <- find_knn(Y, k=k, ...)
-                write.table(data.frame(ndim=ndim, k=k, rbind(out)), file=fname, append=!start, col.names=start, 
+                write.table(data.frame(ndim=d, k=k, rbind(timings)), file=fname, append=!start, col.names=start, 
                         row.names=FALSE, quote=FALSE, sep="\t")
             }
         }
