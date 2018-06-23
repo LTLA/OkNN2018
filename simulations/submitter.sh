@@ -14,7 +14,7 @@ sbatch << EOT
 #SBATCH -o logs/out-hyper
 #SBATCH -e logs/err-hyper
 #SBATCH -n 1
-#SBATCH --mem 2000
+#SBATCH --mem 8000
 
 echo 'source("sim_hypercube.R")' | ${R} --slave --vanilla
 EOT
@@ -30,7 +30,7 @@ sbatch << EOT
 #SBATCH -o logs/out-gauss-${nclust}-${sd}
 #SBATCH -e logs/err-gauss-${nclust}-${sd}
 #SBATCH -n 1
-#SBATCH --mem 2000
+#SBATCH --mem 8000
 
 echo 'NCLUST <- ${nclust}; SD <- ${sd}; source("sim_gaussclust.R")' | ${R} --slave --vanilla
 EOT
@@ -48,7 +48,7 @@ sbatch << EOT
 #SBATCH -o logs/out-helix-${height}-${cycles}
 #SBATCH -e logs/err-helix-${height}-${cycles}
 #SBATCH -n 1
-#SBATCH --mem 2000
+#SBATCH --mem 8000
 
 echo 'HEIGHT <- ${height}; CYCLES <- ${cycles}; source("sim_helical.R")' | ${R} --slave --vanilla
 EOT
