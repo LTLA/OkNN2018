@@ -2,8 +2,9 @@ library(FNN)
 library(RANN)
 library(kmknn)
 
-# Not using RANN box decomposition by default, as it seems to use too much memory.
-METHODS <- c("FNN.kd", "FNN.cover", "RANN.kd", "kmknn", "kmknn.pre")
+# Not using FNN cover tree and RANN box decomposition by default, 
+# as they seem to use too much memory - not sure why.
+METHODS <- c("FNN.kd", "RANN.kd", "kmknn", "kmknn.pre")
 
 find_knn <- function(X, k, methods=METHODS) 
 # Timing function, triggering garbage collection first
@@ -83,6 +84,7 @@ run_real <- function(fname, X, iterations=5, ...)
                 timings <- find_knn(Y, k=k, ...)
                 write.table(data.frame(ndim=d, k=k, rbind(timings)), file=fname, append=!start, col.names=start, 
                         row.names=FALSE, quote=FALSE, sep="\t")
+                start <- FALSE
             }
         }
     }
