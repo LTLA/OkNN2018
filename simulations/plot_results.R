@@ -1,6 +1,10 @@
 # Creates the plots for each simulation scenario.
 
-color <- c(FNN="black", RANN="blue", kmknn="red")
+methods <- c("FNN.kd", "RANN.kd", "kmknn", "kmknn.pre")
+color <- c("black", "blue", "red", "salmon")
+lty <- c(1,1,1,2)
+names(color) <- names(lty) <- methods
+
 for (fname in list.files("results", full=TRUE)) {
     newfname <- file.path("pics", sub(".txt", ".pdf", basename(fname)))
     res <- read.delim(fname, stringsAsFactors=FALSE)
@@ -16,15 +20,24 @@ for (fname in list.files("results", full=TRUE)) {
             chosen <- res[res$ndim==d & res$k==k,]
             chosen <- chosen[order(chosen$npts),]
 
+            # Making the canvas.
             chosen$npts <- chosen$npts/1000
-            methods <- c("FNN", "RANN", "kmknn")
             plot(1,1,type="n", xlim=range(chosen$npts), ylim=range(chosen[,methods]), log="xy",
                     xlab="Number of points (thousands)", ylab="Time (s)",
                     main=sprintf("D = %i, k = %i", d, k))
 
+            # Adding curves with error bars for each method.
             for (meth in methods) {
-                points(chosen$npts, chosen[,meth], pch=16, col=color[meth])
-                lines(chosen$npts, chosen[,meth], lwd=2, col=color[meth])
+                current <- split(chosen[,meth], chosen$npts)
+                all.means <- unlist(lapply(current, mean))
+                all.sds <- unlist(lapply(current, sd))
+
+                new.x <- as.numeric(names(all.means))
+                points(new.x, all.means, pch=16, col=color[meth])
+                lines(new.x, all.means, lwd=2, col=color[meth], lty=lty[meth])
+
+                upper <- all.means + all.sds
+                segments(new.x, all.means, new.x, upper, col=color[meth])
             }
         }
     }
