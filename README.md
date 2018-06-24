@@ -15,3 +15,18 @@ Scenarios in `simulations/` include:
 - `sim_helical.R`, consisting of a helical trajectory.
 
 Some of the scripts have tunable parameters that should be specified by the calling process.
+This is controlled during job submission, which can be executed by calling `submitter.sh` for SLURM clusters.
+
+## Real data
+
+Each dataset in `real/` should contain:
+
+- `proc_*.R`, which processes the data into a RDS file for nearest neighbor detection.
+- `run_*.R`, which runs the algorithm timings on the processed data.
+
+Currently the only dataset is the PBMC 68K single-cell RNA-seq data from 10X Genomics.
+
+## Plot generation
+
+The `plot_results.R` scripts in both directories will generate summary plots for each scenario/dataset.
+Each plot will show the effect of dimensionality and choice of `k`, as well as the number of points for the simulations.
