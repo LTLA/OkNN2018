@@ -3,8 +3,12 @@ library(scater)
 library(DropletUtils)
 
 # Pre-processing the 68K PBMC dataset.
-# Unpack http://cf.10xgenomics.com/samples/cell-exp/1.1.0/fresh_68k_pbmc_donor_a/fresh_68k_pbmc_donor_a_filtered_gene_bc_matrices.tar.gz into "raw_data/pbmc68k".
-sce.68 <- read10xCounts("raw_data/pbmc68k/hg19/") 
+library(BiocFileCache)
+bfc <- BiocFileCache(ask=FALSE)    
+path.68 <- bfcrpath(bfc, "http://cf.10xgenomics.com/samples/cell-exp/1.1.0/fresh_68k_pbmc_donor_a/fresh_68k_pbmc_donor_a_filtered_gene_bc_matrices.tar.gz")
+tmp.68 <- tempfile()
+untar(path.68, exdir=tmp.68)
+sce.68 <- read10xCounts(file.path(tmp.68, "filtered_matrices_mex/hg19/")) 
 
 # Adding locational annotation (using a slightly off-version ensembl, but chromosome assignment shouldn't change).
 library(EnsDb.Hsapiens.v86)
