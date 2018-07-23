@@ -45,5 +45,5 @@ to.use <- dec.68$bio > 0
 out <- scran:::.multi_pca(list(logcounts(sce.68)[to.use,]), d=50, approximate=TRUE, use.crossprod=TRUE)
 X <- out[[1]]
 
-dir.create("processed", showWarnings=FALSE)
-saveRDS(file="processed/pbmc68k.rds", X)
+dir.create("Processed", showWarnings=FALSE)
+saveRDS(file="Processed/pbmc68k.rds", X)
