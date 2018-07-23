@@ -18,3 +18,15 @@ sbatch << EOT
 
 echo 'source("run_pbmc68k.R")' | ${R} --slave --vanilla
 EOT
+
+# Submitting the MNIST runs.
+
+sbatch << EOT
+#!/bin/bash
+#SBATCH -o logs/out-mnist
+#SBATCH -e logs/err-mnist
+#SBATCH -n 1
+#SBATCH --mem 8000
+
+echo 'source("run_mnist.R")' | ${R} --slave --vanilla
+EOT
