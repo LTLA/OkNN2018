@@ -24,7 +24,10 @@ Each dataset in `real/` should contain:
 - `proc_*.R`, which processes the data into a RDS file for nearest neighbor detection.
 - `run_*.R`, which runs the algorithm timings on the processed data.
 
-Currently the only dataset is the PBMC 68K single-cell RNA-seq data from 10X Genomics.
+Current data sets are:
+
+- PBMC 68K single-cell RNA-seq data from 10X Genomics
+- MNIST data sets of handwritten digits
 
 ## Plot generation
 
